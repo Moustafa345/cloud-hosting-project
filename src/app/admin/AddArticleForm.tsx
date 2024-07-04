@@ -1,17 +1,31 @@
 'use client';
+import axios from "axios";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { toast } from 'react-toastify';
+import { DOMAIN } from "../utils/constants";
 
 const AddArticleForm = () => {
-
+    const router = useRouter();
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
 
-    const formSubmitHandler = (e:React.FormEvent) => {
+    const formSubmitHandler = async (e:React.FormEvent) => {
         e.preventDefault();
         if(title === '') return toast.error("Title is required");
         if(description === '') return toast.error("Description is required");
-        console.log({title, description});
+            
+        try {
+            await axios.post(`${DOMAIN}/api/articles`,{title, description});
+            setTitle('');
+            setDescription('');
+            toast.success("Article added successfully");
+            router.refresh();
+        } catch (error:any) {
+            toast.error(error?.response?.data.message);
+            console.log(error);
+        }
+       
     }
 
     return (
@@ -31,7 +45,7 @@ const AddArticleForm = () => {
            placeholder="Enter article description"
            value={description}
            onChange={(e)=> setDescription(e.target.value)}
-           id=""></textarea>
+           ></textarea>
 
             <button 
             className="text-2xl text-white bg-blue-700 hover:bg-blue-900 p-2 rounded-lg font-bold" 

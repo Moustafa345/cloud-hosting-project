@@ -1,10 +1,13 @@
+import { Article, Comment, User } from "@prisma/client";
 
-export type Article = {
-    userId: number;
+
+  export type JWTPayload = {
     id: number;
-    title: string;
-    body: string;
-  
-  }
-  
-  
+    isAdmin: boolean;
+    username: string;
+    email: string;
+}
+
+export type CommentWithUser = Comment & {user: User};
+
+export type SingleArticle = Article & {comments: CommentWithUser[]}

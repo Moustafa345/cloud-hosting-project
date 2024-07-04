@@ -1,9 +1,21 @@
-import React from 'react'
+import { cookies } from "next/headers";
+import { verifyTokenForPage } from "@/app/utils/verifyToken";
+import { redirect } from "next/navigation";
 
-const AdminCommentsPage = () => {
+
+
+const AdminCommentsTable = () => {
+
+  const token = cookies().get("jwtToken")?.value || "";
+  const userPayload = verifyTokenForPage(token);
+
+  if (!userPayload?.isAdmin) {
+      redirect("/");
+  }
+  
   return (
-    <div>AdminCommentsPage</div>
+    <div>AdminCommentsTable</div>
   )
 }
 
-export default AdminCommentsPage
+export default AdminCommentsTable

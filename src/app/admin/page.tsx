@@ -1,7 +1,16 @@
+import { redirect } from "next/navigation";
 import AddArticleForm from "./AddArticleForm"
+import { cookies } from "next/headers";
+import { verifyTokenForPage } from "@/app/utils/verifyToken";
 
 const AdminPage = () => {
 
+    const token = cookies().get("jwtToken")?.value || "";
+    const userPayload = verifyTokenForPage(token);
+
+    if (!userPayload?.isAdmin) {
+        redirect("/");
+    }
   
   return (
     <div className="fix-height flex items-center justify-center px-5 lg:px-20">
