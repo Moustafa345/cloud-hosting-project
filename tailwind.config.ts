@@ -6,8 +6,9 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: ['text-white', 'bg-gray-700', 'text-[#b00fb0]'],
   theme: {
-    extend: { },
+    extend: {},
   },
   plugins: [],
 };
