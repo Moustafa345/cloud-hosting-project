@@ -11,13 +11,13 @@ const AdminSidebar = () => {
       <span className="hidden lg:block">Dashboard</span>
     </Link>
     <ul className="mt-10 flex items-center justify-center flex-col lg:items-start">
-      <Link className="flex items-center text-xl mb-5 lg:border-b border-gray-300 hover:text-yellow-200 transition" href="/admin/articles-table">
+      <Link className="flex items-center text-xl mb-5 lg:border-b border-gray-300 hover:text-yellow-200 transition" href="/admin/articles-table?pageNumber=1">
       <MdOutlineArticle className="me-1" />
       <span className="hidden lg:block">Articles</span>
       </Link>
       <Link className="flex items-center text-xl mb-5 lg:border-b border-gray-300 hover:text-yellow-200 transition" href="/admin/comments-table">
       <FaRegComments  className="me-1" />
-      <span className="hidden lg:block">comments</span>
+      <span className="hidden lg:block">Comments</span>
       </Link>
     </ul>
     </>

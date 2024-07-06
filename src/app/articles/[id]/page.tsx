@@ -12,6 +12,8 @@ interface SingleArticlePageProps {
 
 const SingleArticlePage = async ({params}:SingleArticlePageProps) => {
 
+    // await new Promise(resolve => setTimeout(resolve, 3000))
+
     const token = cookies().get("jwtToken")?.value || "";
     const userPayLoad =  verifyTokenForPage(token);
 

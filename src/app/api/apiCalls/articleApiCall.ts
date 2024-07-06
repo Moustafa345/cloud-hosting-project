@@ -2,13 +2,12 @@
 import { DOMAIN } from "@/app/utils/constants";
 import { SingleArticle } from "@/app/utils/types";
 import { Article } from "@prisma/client";
-import { NextRequest } from "next/server";
 
 
 // Get articles by pageNumber
 export async function getArticles(pageNumber: string | undefined) : Promise<Article[]> {
     const response = await fetch(`${DOMAIN}/api/articles?pageNumber=${pageNumber}`,
-      {next: {revalidate: 50}}
+      {cache: 'no-store'}
      );
    
      if(!response.ok) {
@@ -23,7 +22,7 @@ export async function getArticles(pageNumber: string | undefined) : Promise<Arti
   // Get articles Count
 export async function getArticlesCount() : Promise<number> {
   const response = await fetch(`${DOMAIN}/api/articles/count`,
-    {next: {revalidate: 50}}
+    {cache: 'no-store'}
    );
  
    if(!response.ok) {
@@ -40,9 +39,7 @@ export async function getArticlesCount() : Promise<number> {
 
 // Get articles by searchText
 export async function getArticlesBySearchtext(searchText: string) : Promise<Article[]> {
-  const response = await fetch(`${DOMAIN}/api/articles/search?searchText=${searchText}`,
-    {next: {revalidate: 50}}
-   );
+  const response = await fetch(`${DOMAIN}/api/articles/search?searchText=${searchText}`);
  
    if(!response.ok) {
      throw new Error("Failed to get articles");
@@ -56,9 +53,8 @@ export async function getArticlesBySearchtext(searchText: string) : Promise<Arti
 // Get single article by id
 export async function getSingleArticle(articleId: string) : Promise<SingleArticle> {
 
-  const response = await fetch(`${DOMAIN}/api/articles/${articleId}`, {
-    cache: 'no-store'
-  });
+  const response = await fetch(`${DOMAIN}/api/articles/${articleId}`, 
+    {cache: 'no-store'});
   console.log(response);
     if (!response.ok) {
         throw new Error("Failed to fetch article");
@@ -66,5 +62,6 @@ export async function getSingleArticle(articleId: string) : Promise<SingleArticl
 
     return await response.json();
 }
+
 
 

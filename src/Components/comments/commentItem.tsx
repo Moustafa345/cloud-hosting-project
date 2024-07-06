@@ -44,7 +44,7 @@ const CommentItem = ({ comment, userId }: CommentItemProps) => {
           {new Date(comment.createdAt).toDateString()}
         </span>
       </div>
-      <p className='text-gray-800 mb-2'>
+      <p className='text-gray-800 mb-2 '>
         {comment.text}
       </p>
       {userId && userId === comment.userId && (
